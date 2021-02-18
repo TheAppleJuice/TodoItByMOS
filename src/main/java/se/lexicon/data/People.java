@@ -4,11 +4,14 @@ import java.util.Arrays;
 public class People {
     private static Person[] peopleArray = new Person[0];
     public int size() {
+
         return peopleArray.length;
     }
+
     public Person[] findAll() {
         return peopleArray;
     }
+
     public Person findById(int person_Id) {
         Person findPerson = new Person();
         int tempPERSONID = 0;
@@ -20,11 +23,13 @@ public class People {
         }
         return findPerson;
     }
+
     public void addPerson(Person newPerson) {
         Person[] newPeopleArray = Arrays.copyOf(peopleArray, peopleArray.length + 1);
         newPeopleArray[newPeopleArray.length - 1] = newPerson;
         peopleArray = newPeopleArray;
     }
+
     public void remove(int removePerson_Id){
         int index = -1;
         for(int i = 0; i < peopleArray.length; i++){

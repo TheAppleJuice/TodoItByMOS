@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import static java.util.Arrays.*;
 
-public class TodoItems {
+public class Todo_Item {
     private static Todo[] todoItemsArray = new Todo[0];
 
     public int size() {
@@ -119,6 +119,7 @@ public class TodoItems {
         }
         return thingsIShouldDo;
     }
+
     public Todo[] findUnassignedTodoItems(){
         int counter = 0;
 
