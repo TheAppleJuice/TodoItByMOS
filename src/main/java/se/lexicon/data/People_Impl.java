@@ -2,6 +2,9 @@ package se.lexicon.data;
 import se.lexicon.model.Person;
 import java.util.Arrays;
 public class People_Impl {
+
+
+    /*
     private static Person[] peopleArray = new Person[0];
     public int size() {
 
@@ -53,4 +56,6 @@ public class People_Impl {
     public void clear (){
         peopleArray = null;
     }
+
+     */
 }
