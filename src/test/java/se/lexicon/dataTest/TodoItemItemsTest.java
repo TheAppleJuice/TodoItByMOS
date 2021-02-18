@@ -6,6 +6,8 @@ import se.lexicon.data.TodoItems;
 import se.lexicon.model.Todo_Item;
 import se.lexicon.model.Person;
 public class TodoItemItemsTest {
+
+    /*
     private Todo_Item[] testMissions = new Todo_Item[3];
     private Todo_Item[] testMissions2 = new Todo_Item[3];
     private Todo_Item[] testMissions3 = new Todo_Item[3];
@@ -141,4 +143,6 @@ public class TodoItemItemsTest {
         Assert.assertEquals(expectedLength, actualLength);
 
     }
+
+     */
 }

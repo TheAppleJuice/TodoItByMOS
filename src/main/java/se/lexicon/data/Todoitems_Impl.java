@@ -4,9 +4,58 @@ package se.lexicon.data;
 import se.lexicon.model.Person;
 import se.lexicon.model.Todo_Item;
 
-import static java.util.Arrays.*;
+import java.util.List;
 
-public class Todoitems_Impl {
+public class Todoitems_Impl implements TodoItems {
+    @Override
+    public Todo_Item create(Todo_Item todo) {
+        return null;
+    }
+
+    @Override
+    public List<Todo_Item> findAll() {
+        return null;
+    }
+
+    @Override
+    public Todo_Item findById(int todo_id) {
+        return null;
+    }
+
+    @Override
+    public List<Todo_Item> findByDoneStatus(boolean done) {
+        return null;
+    }
+
+    @Override
+    public List<Todo_Item> findByAssignee(int assignee_id) {
+        return null;
+    }
+
+    @Override
+    public List<Todo_Item> findByAssignee(Person person) {
+        return null;
+    }
+
+    @Override
+    public List<Todo_Item> findByUnassignedTodoItems() {
+        return null;
+    }
+
+    @Override
+    public Todo_Item update(Todo_Item todo) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteById(int todo_id) {
+        return false;
+    }
+
+
+
+
+    /*
     private static Todo_Item[] todoItemItemsArray = new Todo_Item[0];
 
     public int size() {
@@ -155,5 +204,7 @@ public class Todoitems_Impl {
         }
         todoItemItemsArray = newArray;
     }
+
+     */
 
 }
