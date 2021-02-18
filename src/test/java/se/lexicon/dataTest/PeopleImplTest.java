@@ -2,9 +2,9 @@ package se.lexicon.dataTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import se.lexicon.data.People;
+import se.lexicon.data.People_Impl;
 import se.lexicon.model.Person;
-public class PeopleTest {
+public class PeopleImplTest {
     private Person[] testPeople1 = new Person[3];
     private Person testPeoplePerson1 = new Person();
     private Person testPeoplePerson2 = new Person();
@@ -28,25 +28,25 @@ public class PeopleTest {
     }
     @Test
     public void testAddPerson(){
-        People testPeople = new People();
-        testPeople.addPerson(testPeoplePerson1);
-        testPeople.addPerson(testPeoplePerson2);
+        People_Impl testPeopleImpl = new People_Impl();
+        testPeopleImpl.addPerson(testPeoplePerson1);
+        testPeopleImpl.addPerson(testPeoplePerson2);
         Person[] expectedTestArray = testPeople1;
-        Person[] actualTestArray = testPeople.findAll();
+        Person[] actualTestArray = testPeopleImpl.findAll();
         Assert.assertEquals(expectedTestArray[0].getPERSONID(), actualTestArray[0].getPERSONID());
     }
     @Test
     public void testFindAll(){
-        People testPeople = new People();
-        testPeople.addPerson(testPeoplePerson1);
-        testPeople.addPerson(testPeoplePerson2);
+        People_Impl testPeopleImpl = new People_Impl();
+        testPeopleImpl.addPerson(testPeoplePerson1);
+        testPeopleImpl.addPerson(testPeoplePerson2);
         Person[] expectedTestArray = testPeople1;
-        Person[] actualTestArray = testPeople.findAll();
+        Person[] actualTestArray = testPeopleImpl.findAll();
         Assert.assertArrayEquals(expectedTestArray, actualTestArray);
     }
     @Test
     public void testClear(){
-        People testClear = new People();
+        People_Impl testClear = new People_Impl();
         testClear.addPerson(testPeoplePerson1);
         testClear.addPerson(testPeoplePerson2);
         testClear.clear();
@@ -54,7 +54,7 @@ public class PeopleTest {
     }
     @Test
     public void testRemove() {
-        People testRemovePerson = new People();        //Index
+        People_Impl testRemovePerson = new People_Impl();        //Index
         testRemovePerson.addPerson(testPeoplePerson1); //0 Micke
         testRemovePerson.addPerson(testPeoplePerson2); //1 Ola
         testRemovePerson.addPerson(testPeoplePerson3); //2 Sebbe

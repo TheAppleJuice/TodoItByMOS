@@ -2,18 +2,17 @@ package se.lexicon.dataTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import se.lexicon.data.People;
 import se.lexicon.data.TodoItems;
-import se.lexicon.model.Todo;
+import se.lexicon.model.Todo_Item;
 import se.lexicon.model.Person;
-public class TodoItemsTest {
-    private Todo[] testMissions = new Todo[3];
-    private Todo[] testMissions2 = new Todo[3];
-    private Todo[] testMissions3 = new Todo[3];
-    private Todo testMission1 = new Todo();
-    private Todo testMission2 = new Todo();
-    private Todo testMission3 = new Todo();
-    private Todo testMission4 = new Todo();
+public class TodoItemItemsTest {
+    private Todo_Item[] testMissions = new Todo_Item[3];
+    private Todo_Item[] testMissions2 = new Todo_Item[3];
+    private Todo_Item[] testMissions3 = new Todo_Item[3];
+    private Todo_Item testMission1 = new Todo_Item();
+    private Todo_Item testMission2 = new Todo_Item();
+    private Todo_Item testMission3 = new Todo_Item();
+    private Todo_Item testMission4 = new Todo_Item();
     private Person person1 = new Person();
     private Person person2 = new Person();
     private Person person3 = new Person();
@@ -70,8 +69,8 @@ public class TodoItemsTest {
         TodoItems testTodoItems = new TodoItems();
         testTodoItems.addTodo(testMission1);
         testTodoItems.addTodo(testMission2);
-        Todo[] expectedTestArray = testMissions;
-        Todo[] actualTestArray = testTodoItems.findAllThingsTodo();
+        Todo_Item[] expectedTestArray = testMissions;
+        Todo_Item[] actualTestArray = testTodoItems.findAllThingsTodo();
         Assert.assertEquals(expectedTestArray[0].getTODOID(), actualTestArray[0].getTODOID());
     }
     @Test
@@ -79,8 +78,8 @@ public class TodoItemsTest {
         TodoItems testTodoItems = new TodoItems();
         testTodoItems.addTodo(testMission1);
         testTodoItems.addTodo(testMission2);
-        Todo[] expectedTestArray = testMissions;
-        Todo[] actualTestArray = testTodoItems.findAllThingsTodo();
+        Todo_Item[] expectedTestArray = testMissions;
+        Todo_Item[] actualTestArray = testTodoItems.findAllThingsTodo();
         Assert.assertArrayEquals(expectedTestArray, actualTestArray);
     }
     @Test

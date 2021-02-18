@@ -22,17 +22,25 @@ public class Person {
     public int getPerson_Id() {
         return person_Id;
     }
-    public String getFirstName() {
+
+    public void setPerson_Id(int person_Id) {
+        this.person_Id = person_Id;
+    }
+
+    public String getFirst_Name() {
         return first_Name;
     }
-    public void setFirstName(String firstName) {
-        this.first_Name = firstName;
+
+    public void setFirst_Name(String first_Name) {
+        this.first_Name = first_Name;
     }
-    public String getLastName() {
+
+    public String getLast_Name() {
         return last_Name;
     }
-    public void setLastName(String lastName) {
-        this.last_Name = lastName;
+
+    public void setLast_Name(String last_Name) {
+        this.last_Name = last_Name;
     }
 
     @Override
