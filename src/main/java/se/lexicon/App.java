@@ -20,8 +20,21 @@ public class App
         //  Person findPersonById = peopleDao.findById(1);
       //  System.out.println(findPersonById);
 
-        List<Person> findAll = peopleDao.findAll();
-        findAll.forEach(System.out::println);
+       // List<Person> findAll = peopleDao.findAll();
+      //  findAll.forEach(System.out::println);
+
+       // List<Person> findByName = peopleDao.findByName("Sebastian");
+       // findByName.forEach(System.out::println);
+
+       // Person updatePerson = new Person(1, "Sebastian", "Petersson");
+       // Person updatedPerson = peopleDao.update(updatePerson);
+
+      //  Person findPersonById = peopleDao.findById(1);
+      //  System.out.println(findPersonById);
+
+        boolean deletePerson = peopleDao.deleteById(1);
+
+
 
     }
 }

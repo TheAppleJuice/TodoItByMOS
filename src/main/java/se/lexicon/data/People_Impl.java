@@ -86,17 +86,67 @@ public class People_Impl implements People {
 
     @Override
     public List<Person> findByName(String name) {
-        return null;
+        String query = "select * from person where first_name=?";
+        List <Person> personList = new ArrayList<>();
+        try(
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                personList.add(new Person(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3)
+                ));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return personList;
     }
 
     @Override
     public Person update(Person person) {
-        return null;
-    }
+        String query = "update person set first_name=?, last_name=? where person_id= ?";
+
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ){
+            preparedStatement.setString(1, person.getFirst_Name());
+            preparedStatement.setString(2, person.getLast_Name());
+            preparedStatement.setInt(3, person.getPerson_Id());
+
+
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet == 1) ? "Person updated to database" : "Person not updated");
+            // get generated key from prepared statement
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return person;    }
 
     @Override
     public boolean deleteById(int person_id) {
-        return false;
+        String query = "delete from person where person_id= ?";
+        try(
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ){
+
+            preparedStatement.setInt(1, person_id);
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet == 1) ? "Person deleted from database" : "Person not deleted");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return true;
     }
 
 
