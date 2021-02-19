@@ -217,7 +217,17 @@ public class Todoitems_Impl implements TodoItems {
 
     @Override
     public boolean deleteById(int todo_id) {
-        return false;
+        String query = "delete from todo_item where todo_id = ?";
+        try(
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+                ){
+            preparedStatement.setInt(1,todo_id);
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet == 1) ? "Todo item deleted from list" : "Todo item not deleted");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
     }
 
 

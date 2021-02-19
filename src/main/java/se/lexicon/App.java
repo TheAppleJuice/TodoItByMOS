@@ -57,9 +57,11 @@ public class App
       // Collection<Todo_Item> findByAssignee = todoItemsDao.findByAssignee( new Person (3, "Sebastian", "Bocaciu"));
       // findByAssignee.forEach(System.out::println);
 
-        Todo_Item updateTodoItem = new Todo_Item(1,"Update", "updated todo item",LocalDate.parse("2021-02-19"),true,2);
-        Todo_Item updatedTodoItem = todoItemsDao.update(updateTodoItem);
-        System.out.println(updatedTodoItem);
+       // Todo_Item updateTodoItem = new Todo_Item(1,"Update", "updated todo item",LocalDate.parse("2021-02-19"),true,2);
+       // Todo_Item updatedTodoItem = todoItemsDao.update(updateTodoItem);
+       // System.out.println(updatedTodoItem);
+
+        boolean deleteItem = todoItemsDao.deleteById(3);
 
 
 
