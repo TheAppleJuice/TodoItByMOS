@@ -61,7 +61,7 @@ public class App
        // Todo_Item updatedTodoItem = todoItemsDao.update(updateTodoItem);
        // System.out.println(updatedTodoItem);
 
-        boolean deleteItem = todoItemsDao.deleteById(3);
+        todoItemsDao.deleteById(2);
 
 
 
