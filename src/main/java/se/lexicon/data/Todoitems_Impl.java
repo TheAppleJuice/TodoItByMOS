@@ -1,25 +1,95 @@
 package se.lexicon.data;
 
 
+import se.lexicon.dao.database.MySqlConnection;
 import se.lexicon.model.Person;
 import se.lexicon.model.Todo_Item;
 
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Todoitems_Impl implements TodoItems {
     @Override
     public Todo_Item create(Todo_Item todo) {
-        return null;
+        String query = "insert into todo_item (title,description,deadline,done,assignee_id) value (?,?,?,?,?)";
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                ){
+            preparedStatement.setString(1,todo.getTitle());
+            preparedStatement.setString(2, todo.getDescription());
+            preparedStatement.setString(3, todo.getDeadline().toString());
+            preparedStatement.setBoolean(4, todo.isDone());
+            preparedStatement.setInt(5,todo.getAssignee_id());
+
+            int resultSet = preparedStatement.executeUpdate();
+
+            System.out.println((resultSet==1) ? "Todo item added to list" : "No todo item added to list");
+            ResultSet resultSet1 = preparedStatement.getGeneratedKeys();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return todo;
     }
 
     @Override
     public List<Todo_Item> findAll() {
-        return null;
+
+        String query = "select * from todo_item";
+        List<Todo_Item> todo_itemList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                todo_itemList.add(new Todo_Item(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getDate(4).toLocalDate(),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6)
+                ));
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return todo_itemList;
+
+
     }
+
+
 
     @Override
     public Todo_Item findById(int todo_id) {
-        return null;
+
+        String query = "select * from todo_item where todo_id = ?";
+        Todo_Item todoItem=new Todo_Item();
+        try(
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+                ){
+            preparedStatement.setInt(1, todo_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                todoItem.setTodo_id(resultSet.getInt(1));
+                todoItem.setTitle(resultSet.getString(2));
+                todoItem.setDescription(resultSet.getString(3));
+                todoItem.setDeadline(resultSet.getDate(4).toLocalDate());
+                todoItem.setDone(resultSet.getBoolean(5));
+                todoItem.setAssignee_id(resultSet.getInt(6));
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return todoItem;
     }
 
     @Override
