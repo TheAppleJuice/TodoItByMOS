@@ -8,6 +8,7 @@ import se.lexicon.model.Todo_Item;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Todoitems_Impl implements TodoItems {
@@ -35,10 +36,10 @@ public class Todoitems_Impl implements TodoItems {
     }
 
     @Override
-    public List<Todo_Item> findAll() {
+    public Collection<Todo_Item> findAll() {
 
         String query = "select * from todo_item";
-        List<Todo_Item> todo_itemList = new ArrayList<>();
+        Collection<Todo_Item> todo_itemList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -91,9 +92,9 @@ public class Todoitems_Impl implements TodoItems {
     }
 
     @Override
-    public List<Todo_Item> findByDoneStatus(boolean done) {
+    public Collection<Todo_Item> findByDoneStatus(boolean done) {
         String query = "select * from todo_item where done = ?";
-        List<Todo_Item> todo_itemList= new ArrayList<>();
+        Collection<Todo_Item> todo_itemList= new ArrayList<>();
         try(
                 PreparedStatement preparedStatement=MySqlConnection.getConnection().prepareStatement(query);
                 ){
@@ -101,7 +102,7 @@ public class Todoitems_Impl implements TodoItems {
             ResultSet resultSet= preparedStatement.executeQuery();
             while (resultSet.next()){
                 todo_itemList.add(new Todo_Item(
-                        resultSet.getInt(1),
+                resultSet.getInt(1),
                 resultSet.getString(2),
                 resultSet.getString(3),
                 resultSet.getDate(4).toLocalDate(),
@@ -112,28 +113,106 @@ public class Todoitems_Impl implements TodoItems {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return todo_itemList;
     }
 
     @Override
-    public List<Todo_Item> findByAssignee(int assignee_id) {
-        return null;
+    public Collection<Todo_Item> findByAssignee(int assignee_id) {
+        String query = "select * from todo_item where assignee_id = ?";
+        Collection <Todo_Item> todo_itemList = new ArrayList<>();
+        try(
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            preparedStatement.setInt(1, assignee_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                todo_itemList.add(new Todo_Item(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getDate(4).toLocalDate(),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6)
+                ));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return todo_itemList;
     }
 
     @Override
-    public List<Todo_Item> findByAssignee(Person person) {
-        return null;
+    public Collection<Todo_Item> findByAssignee(Person person) {
+        String query = "select * from todo_item where assignee_id =?";
+            Collection <Todo_Item> todo_itemList = new ArrayList<>();
+            try(
+                PreparedStatement preparedStatement =MySqlConnection.getConnection().prepareStatement(query);
+                ){
+            preparedStatement.setInt(1, person.getPerson_Id());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                    todo_itemList.add(new Todo_Item(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getDate(4).toLocalDate(),
+                            resultSet.getBoolean(5),
+                            resultSet.getInt(6)
+                    ));
+                }
+            } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+            return todo_itemList;
     }
 
     @Override
-    public List<Todo_Item> findByUnassignedTodoItems() {
-        return null;
-    }
+    public Collection<Todo_Item> findByUnassignedTodoItems() {
+        String query = "select * from todo_item where assignee_id = null ";
+        Collection <Todo_Item> todo_itemList = new ArrayList<>();
+        try(
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                todo_itemList.add(new Todo_Item(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getDate(4).toLocalDate(),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6)
+                ));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return todo_itemList;    }
 
     @Override
     public Todo_Item update(Todo_Item todo) {
-        return null;
+        String query = "update todo_item set title=?, description=?, deadline=?, done=?, assignee_id=? where todo_id= ?";
+
+        try(
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
+                ){
+            preparedStatement.setString(1, todo.getTitle());
+            preparedStatement.setString(2, todo.getDescription());
+            preparedStatement.setString(3,todo.getDeadline().toString());
+            preparedStatement.setBoolean(4,todo.isDone());
+            preparedStatement.setInt(5,todo.getAssignee_id());
+            preparedStatement.setInt(6, todo.getTodo_id());
+
+
+            int resultSet = preparedStatement.executeUpdate();
+            System.out.println((resultSet == 1) ? "Todo item updated" : "Todo item not updated");
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return todo;
     }
 
     @Override

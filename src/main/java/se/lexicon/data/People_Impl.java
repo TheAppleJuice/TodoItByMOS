@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -41,9 +41,9 @@ public class People_Impl implements People {
     }
 
     @Override
-    public List<Person> findAll() {
+    public Collection<Person> findAll() {
         String query = "select * from person";
-        List<Person> personList = new ArrayList<>();
+        Collection<Person> personList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -85,9 +85,9 @@ public class People_Impl implements People {
     }
 
     @Override
-    public List<Person> findByName(String name) {
+    public Collection<Person> findByName(String name) {
         String query = "select * from person where first_name=?";
-        List <Person> personList = new ArrayList<>();
+        Collection <Person> personList = new ArrayList<>();
         try(
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);
         ) {
