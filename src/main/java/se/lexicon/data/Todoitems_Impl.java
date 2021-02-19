@@ -14,7 +14,7 @@ import java.util.List;
 public class Todoitems_Impl implements TodoItems {
     @Override
     public Todo_Item create(Todo_Item todo) {
-        String query = "insert into todo_item (title,description,deadline,done,assignee_id) value (?,?,?,?,?)";
+        String query = "insert into todo_item (title,description,deadline,done, assignee_id) value (?,?,?,?,?)";
         try (
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                 ){
@@ -27,6 +27,30 @@ public class Todoitems_Impl implements TodoItems {
             int resultSet = preparedStatement.executeUpdate();
 
             System.out.println((resultSet==1) ? "Todo item added to list" : "No todo item added to list");
+            ResultSet resultSet1 = preparedStatement.getGeneratedKeys();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return todo;
+    }
+
+    // ADDED createUnassignedItem FUNCTION TO TEST findByUnassignedTodoItems.
+    @Override
+    public Todo_Item createUnassignedItem(Todo_Item todo) {
+        String query = "insert into todo_item (title,description,deadline,done) value (?,?,?,?)";
+        try (
+                PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        ){
+            preparedStatement.setString(1,todo.getTitle());
+            preparedStatement.setString(2, todo.getDescription());
+            preparedStatement.setString(3, todo.getDeadline().toString());
+            preparedStatement.setBoolean(4, todo.isDone());
+
+
+            int resultSet = preparedStatement.executeUpdate();
+
+            System.out.println((resultSet==1) ? "Todo item added to list with no assigned ID" : "No todo item added to list");
             ResultSet resultSet1 = preparedStatement.getGeneratedKeys();
 
         } catch (SQLException throwables) {
@@ -169,7 +193,7 @@ public class Todoitems_Impl implements TodoItems {
 
     @Override
     public Collection<Todo_Item> findByUnassignedTodoItems() {
-        String query = "select * from todo_item where assignee_id = null ";
+        String query = "select * from todo_item where assignee_id is null";
         Collection <Todo_Item> todo_itemList = new ArrayList<>();
         try(
                 PreparedStatement preparedStatement = MySqlConnection.getConnection().prepareStatement(query);

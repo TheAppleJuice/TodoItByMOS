@@ -10,6 +10,7 @@ import se.lexicon.model.Todo_Item;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class App
@@ -38,9 +39,13 @@ public class App
 
        // boolean deletePerson = peopleDao.deleteById(1);
 
-     // Todo_Item addTodoItem = new Todo_Item("Computer", "Buy a new computer", LocalDate.parse("2021-03-01"), false, 3);
-     // Todo_Item addedTodoItem = todoItemsDao.create(addTodoItem);
-     // System.out.println(addedTodoItem);
+      // Todo_Item addTodoItem = new Todo_Item("Test", "Test fika", LocalDate.parse("2021-03-01"), false, 5);
+      // Todo_Item addedTodoItem = todoItemsDao.create(addTodoItem);
+      // System.out.println(addedTodoItem);
+
+      //  Todo_Item createUnassignedItem = new Todo_Item("Github", "Commit all changes to Github", LocalDate.parse("2021-03-04"),false);
+       // Todo_Item addToList = todoItemsDao.createUnassignedItem(createUnassignedItem);
+       // System.out.println("addToList = " + addToList);
 
       // Collection<Todo_Item> findAllTodoItems = todoItemsDao.findAll();
       // findAllTodoItems.forEach(System.out::println);
@@ -57,11 +62,14 @@ public class App
       // Collection<Todo_Item> findByAssignee = todoItemsDao.findByAssignee( new Person (3, "Sebastian", "Bocaciu"));
       // findByAssignee.forEach(System.out::println);
 
+       // Collection<Todo_Item> findByUnassignedTodoItems = todoItemsDao.findByUnassignedTodoItems();
+       // findByUnassignedTodoItems.forEach(System.out::println);
+
        // Todo_Item updateTodoItem = new Todo_Item(1,"Update", "updated todo item",LocalDate.parse("2021-02-19"),true,2);
        // Todo_Item updatedTodoItem = todoItemsDao.update(updateTodoItem);
        // System.out.println(updatedTodoItem);
 
-        todoItemsDao.deleteById(2);
+       // todoItemsDao.deleteById(2);
 
 
 

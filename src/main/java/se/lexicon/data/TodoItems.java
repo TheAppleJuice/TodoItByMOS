@@ -16,4 +16,7 @@ public interface TodoItems {
     Todo_Item update (Todo_Item todo);
     boolean deleteById (int todo_id);
 
+    // ADDED createUnassignedItem FUNCTION TO TEST findByUnassignedTodoItems.
+    Todo_Item createUnassignedItem(Todo_Item todo);
+
 }
