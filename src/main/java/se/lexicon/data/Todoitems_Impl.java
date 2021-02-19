@@ -64,8 +64,6 @@ public class Todoitems_Impl implements TodoItems {
 
     }
 
-
-
     @Override
     public Todo_Item findById(int todo_id) {
 
@@ -94,7 +92,28 @@ public class Todoitems_Impl implements TodoItems {
 
     @Override
     public List<Todo_Item> findByDoneStatus(boolean done) {
-        return null;
+        String query = "select * from todo_item where done = ?";
+        List<Todo_Item> todo_itemList= new ArrayList<>();
+        try(
+                PreparedStatement preparedStatement=MySqlConnection.getConnection().prepareStatement(query);
+                ){
+            preparedStatement.setBoolean(1, done);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()){
+                todo_itemList.add(new Todo_Item(
+                        resultSet.getInt(1),
+                resultSet.getString(2),
+                resultSet.getString(3),
+                resultSet.getDate(4).toLocalDate(),
+                resultSet.getBoolean(5),
+                resultSet.getInt(6)
+                ));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return todo_itemList;
     }
 
     @Override
